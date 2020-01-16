@@ -306,6 +306,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         @ColorInt public final int colorAccentLight;
         @ColorInt public final int colorAccentDark;
         @ColorInt public final int colorPrimary;
+        @ColorInt public final int colorSecondaryPrimary;
         public final List<Drawable> icons;
         public final Drawable shapeDrawable;
         @Nullable public final Asset wallpaperAsset;
@@ -314,7 +315,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
 
         private PreviewInfo(Context context, Typeface bodyFontFamily, Typeface headlineFontFamily,
                 int colorAccentLight, int colorAccentDark, int colorPrimary,
-                List<Drawable> icons, Drawable shapeDrawable,
+                int colorSecondaryPrimary, List<Drawable> icons, Drawable shapeDrawable,
                 @Nullable Asset wallpaperAsset, List<Drawable> shapeAppIcons,
                 @Nullable Drawable headerImage) {
             this.bodyFontFamily = bodyFontFamily;
@@ -322,6 +323,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
             this.colorAccentLight = colorAccentLight;
             this.colorAccentDark = colorAccentDark;
             this.colorPrimary = colorPrimary;
+            this.colorSecondaryPrimary = colorSecondaryPrimary;
             this.icons = icons;
             this.shapeDrawable = shapeDrawable;
             this.wallpaperAsset = wallpaperAsset == null
@@ -345,6 +347,11 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         public int resolvePrimaryColor(Resources res) {
             return colorPrimary;
         }
+
+        @ColorInt
+        public int resolveSecondaryPrimaryColor(Resources res) {
+            return colorSecondaryPrimary;
+        }
     }
 
     public static class Builder {
@@ -354,6 +361,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         @ColorInt private int mColorAccentLight = -1;
         @ColorInt private int mColorAccentDark = -1;
         @ColorInt private int mColorPrimary = -1;
+        @ColorInt private int mColorSecondaryPrimary = -1;
         private List<Drawable> mIcons = new ArrayList<>();
         private String mPathString;
         private Path mShapePath;
@@ -396,7 +404,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
             }
             Drawable headerImage = mHeaderInfo != null ? mHeaderInfo.getDrawable(context) : null;
             return new PreviewInfo(context, mBodyFontFamily, mHeadlineFontFamily, mColorAccentLight,
-                    mColorAccentDark, mColorPrimary, mIcons, shapeDrawable,
+                    mColorAccentDark, mColorPrimary, mColorSecondaryPrimary, mIcons, shapeDrawable,
                     mWallpaperAsset, shapeIcons, headerImage);
         }
 
@@ -430,6 +438,11 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
 
         public Builder setColorPrimary(@ColorInt int colorPrimary) {
             mColorPrimary = colorPrimary;
+            return this;
+        }
+
+        public Builder setColorSecondaryPrimary(@ColorInt int colorSecondaryPrimary) {
+            mColorSecondaryPrimary = colorSecondaryPrimary;
             return this;
         }
 
