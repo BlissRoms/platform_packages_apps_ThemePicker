@@ -25,6 +25,10 @@
         android:title="@string/clock_title"
         android:icon="@drawable/ic_nav_clock" />
     <item
+        android:id="@+id/nav_volume"
+        android:title="@string/volume_title"
+        android:icon="@drawable/ic_nav_clock" />
+    <item
         android:id="@+id/nav_grid"
         android:title="@string/grid_title"
         android:icon="@drawable/ic_nav_grid" />
