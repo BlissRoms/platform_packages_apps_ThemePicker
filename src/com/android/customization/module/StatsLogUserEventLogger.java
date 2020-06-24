@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import com.android.customization.model.clock.Clockface;
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.theme.ThemeBundle;
+import com.android.customization.model.volume.VolumeDialogInfo;
 import com.android.wallpaper.module.NoOpUserEventLogger;
 
 import java.util.Map;
@@ -117,6 +118,22 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         WallpaperStatsLog.write(CODE, StyleEnums.PICKER_APPLIED,
                 0, 0, 0,
                 Objects.hashCode(clock.getId()),
+                0, 0, 0, 0, 0);
+    }
+
+    @Override
+    public void logVolumeDialogSelected(VolumeDialogInfo volume) {
+        WallpaperStatsLog.write(CODE, StyleEnums.PICKER_SELECT,
+                0, 0, 0,
+                Objects.hashCode(volume.getId()),
+                0, 0, 0, 0, 0);
+    }
+
+    @Override
+    public void logVolumeDialogApplied(VolumeDialogInfo volume) {
+        WallpaperStatsLog.write(CODE, StyleEnums.PICKER_APPLIED,
+                0, 0, 0,
+                Objects.hashCode(volume.getId()),
                 0, 0, 0, 0, 0);
     }
 
