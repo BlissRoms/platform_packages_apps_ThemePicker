@@ -18,6 +18,7 @@ package com.android.customization.module;
 import com.android.customization.model.clock.Clockface;
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.theme.ThemeBundle;
+import com.android.customization.model.volume.VolumeDialogInfo;
 import com.android.wallpaper.module.UserEventLogger;
 
 /**
@@ -32,6 +33,10 @@ public interface ThemesUserEventLogger extends UserEventLogger {
     void logClockSelected(Clockface clock);
 
     void logClockApplied(Clockface clock);
+
+    void logVolumeDialogSelected(VolumeDialogInfo volume);
+
+    void logVolumeDialogApplied(VolumeDialogInfo volume);
 
     void logGridSelected(GridOption grid);
 
