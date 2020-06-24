@@ -46,15 +46,21 @@ import com.android.customization.model.theme.DefaultThemeProvider;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeManager;
+import com.android.customization.model.volume.VolumeDialogManager;
+import com.android.customization.model.volume.VolumeDialogInfo;
+import com.android.customization.model.volume.ContentProviderVolumeDialogProvider;
 import com.android.customization.module.CustomizationInjector;
 import com.android.customization.module.DefaultCustomizationPreferences;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.clock.ClockFragment;
 import com.android.customization.picker.clock.ClockFragment.ClockFragmentHost;
+import com.android.customization.picker.volume.VolumeDialogFragment;
+import com.android.customization.picker.volume.VolumeDialogFragment.VolumeDialogFragmentHost;
 import com.android.customization.picker.grid.GridFragment;
 import com.android.customization.picker.grid.GridFragment.GridFragmentHost;
 import com.android.customization.picker.theme.ThemeFragment;
 import com.android.customization.picker.theme.ThemeFragment.ThemeFragmentHost;
+import com.android.customization.picker.volume.VolumeDialogFragment;
 import com.android.customization.widget.NoTintDrawableWrapper;
 import com.android.wallpaper.R;
 import com.android.wallpaper.compat.BuildCompat;
@@ -83,7 +89,7 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost, PermissionChangedListener {
+        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost, VolumeDialogFragmentHost, PermissionChangedListener {
 
     private static final String TAG = "CustomizationPickerActivity";
     private static final String WALLPAPER_FLAVOR_EXTRA = "com.android.launcher3.WALLPAPER_FLAVOR";
@@ -216,6 +222,14 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             mSections.put(R.id.nav_clock, new ClockSection(R.id.nav_clock, clockManager));
         } else {
             Log.d(TAG, "ClockManager not available, removing Clock section");
+        }
+        //Clock
+        VolumeDialogManager volumeManager = new VolumeDialogManager(getContentResolver(),
+                new ContentProviderVolumeDialogProvider(this), eventLogger);
+        if (volumeManager.isAvailable()) {
+            mSections.put(R.id.nav_clock, new ClockSection(R.id.nav_clock, volumeManager));
+        } else {
+            Log.d(TAG, "VolumeDialogManager not available, removing Clock section");
         }
         //Grid
         GridOptionsManager gridManager = new GridOptionsManager(
@@ -375,6 +389,12 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public VolumeDialogManager getCurrentVolumeDialog() {
+        CustomizationSection section = mSections.get(R.id.nav_clock);
+        return section == null ? null : (VolumeDialogManager) section.customizationManager;
+    }
+
+    @Override
     public GridOptionsManager getGridOptionsManager() {
         CustomizationSection section = mSections.get(R.id.nav_grid);
         return section == null ? null : (GridOptionsManager) section.customizationManager;
@@ -523,6 +543,23 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         Fragment getFragment() {
             if (mFragment == null) {
                 mFragment = ClockFragment.newInstance(getString(R.string.clock_title));
+            }
+            return mFragment;
+        }
+    }
+
+    private class VolumeSection extends CustomizationSection<VolumeDialogInfo> {
+
+        private VolumeDialogFragment mFragment;
+
+        private VolumeSection(int id, VolumeDialogManager manager) {
+            super(id, manager);
+        }
+
+        @Override
+        Fragment getFragment() {
+            if (mFragment == null) {
+                mFragment = VolumeDialogFragment.newInstance(getString(R.string.volume_title));
             }
             return mFragment;
         }
