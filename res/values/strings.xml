@@ -212,4 +212,9 @@
 
     <!-- Bottom sheet dialog which displaying different theme's info. [CHAR_LIMIT=80] -->
     <string name="style_info_description">Preview of font, icons, app shape, and color</string>
+
+    <string name="use_accent_color_hour">Hour Accent color</string>
+    <string name="use_accent_color_minute">Minute Accent color</string>
+    <string name="use_accent_color_custom">Accent color (custom clock)</string>
+
 </resources>
