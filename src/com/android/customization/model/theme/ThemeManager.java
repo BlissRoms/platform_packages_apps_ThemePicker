@@ -74,7 +74,7 @@ public class ThemeManager implements CustomizationManager<ThemeBundle> {
 
     @Override
     public boolean isAvailable() {
-        return mOverlayManagerCompat.isAvailable() && mProvider.isAvailable();
+        return false;
     }
 
     @Override
