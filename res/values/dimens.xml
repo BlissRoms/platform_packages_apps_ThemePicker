@@ -135,4 +135,7 @@
     <dimen name="color_seed_option_tile_padding">10dp</dimen>
     <dimen name="color_seed_option_tile_padding_selected">6dp</dimen>
     <dimen name="color_seed_chip_margin">14dp</dimen>
+
+    <!-- For the custom themed icons -->
+    <dimen name="default_margin">16dp</dimen>
 </resources>
