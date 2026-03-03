@@ -19,4 +19,12 @@
     <string name="bundle1_color_name">کربن</string>
     <string name="bundle2_color_name">کاغذ</string>
     <string name="bundle3_color_name">خورشید</string>
+    <string name="indigo_color_name">نیلی</string>
+    <string name="iris_color_name">قوس</string>
+    <string name="jade_color_name">یشم</string>
+    <string name="lemongrass_color_name">علف لیمو</string>
+    <string name="moonstone_color_name">سنگ ماه</string>
+    <string name="obsidian_color_name">شیشه‌سنگ</string>
+    <string name="peony_color_name">گل صدتومانی</string>
+    <string name="porcelain_color_name">پرسلان</string>
 </resources>
